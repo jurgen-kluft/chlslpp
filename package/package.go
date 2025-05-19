@@ -17,12 +17,12 @@ func GetPackage() *denv.Package {
 	mainpkg.AddPackage(ccorepkg)
 
 	// 'chlslpp' library
-	mainlib := denv.SetupDefaultCppLibProject("chlslpp", "github.com\\jurgen-kluft\\chlslpp")
-	mainlib.Dependencies = append(mainlib.Dependencies, ccorepkg.GetMainLib())
+	mainlib := denv.SetupCppLibProject("chlslpp", "github.com\\jurgen-kluft\\chlslpp")
+	mainlib.AddDependencies(ccorepkg.GetMainLib()...)
 
 	// 'chlslpp' unittest project
 	maintest := denv.SetupDefaultCppTestProject("chlslpp"+"_test", "github.com\\jurgen-kluft\\chlslpp")
-	maintest.Dependencies = append(maintest.Dependencies, cunittestpkg.GetMainLib())
+	maintest.AddDependencies(cunittestpkg.GetMainLib()...)
 	maintest.Dependencies = append(maintest.Dependencies, mainlib)
 
 	mainpkg.AddMainLib(mainlib)
